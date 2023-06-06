@@ -471,6 +471,9 @@ onUiLoaded(() => {
                     case "lora":
                         model_type = "lora";
                         break;
+                    case "lycoris":
+                        model_type = "lycoris";
+                        break;
                 }
 
                 if (!model_type) {
@@ -481,6 +484,7 @@ onUiLoaded(() => {
 
                 //only handle current sub-tab
                 if (model_type != active_extra_tab_type) {
+                    console.log("skip inactive extra tab: " + model_type, active_extra_tab_type);
                     continue;
                 }
 
@@ -498,12 +502,17 @@ onUiLoaded(() => {
                 }
                 // check if extra network is under thumbnail mode
                 is_thumb_mode = false
+                console.log("model_type: " + model_type);
+                console.log("extra_network_node: " + extra_network_node)
                 if (extra_network_node) {
                     if (extra_network_node.className == "extra-network-thumbs" || extra_network_node.className == "extra-network-cards") {
                         console.log(extra_network_id + " is in thumbnail mode");
                         is_thumb_mode = true;
                         // if (!ch_show_btn_on_thumb) {continue;}
-                    }
+                    } else {
+                        console.log(extra_network_id + " is in card mode");
+                        console.log(`className: ${extra_network_node.className}`);
+                   }
                 } else {
                     console.log("can not find extra_network_node: " + extra_network_id);
                     continue;
